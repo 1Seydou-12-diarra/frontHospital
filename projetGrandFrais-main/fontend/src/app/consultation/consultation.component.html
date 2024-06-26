@@ -1,0 +1,175 @@
+<p-toast></p-toast>
+
+<div class="card">
+  <p-toolbar>
+    <div class="p-toolbar-group-left">
+      <p-button
+        (click)="showDialog()"
+        label="Ajouter"
+        icon="pi pi-plus"
+        class="mr-2"
+      ></p-button>
+    </div>
+    <div class="p-toolbar-group-right">
+      <span class="p-input-icon-left mb-2 md:mb-0">
+        <i class="pi pi-search"></i>
+        <input
+          type="search"
+          pInputText
+          placeholder="Recherche"
+          (input)="p.filterGlobal($any($event.target).value, 'contains')"
+        />
+      </span>
+    </div>
+  </p-toolbar>
+  <!-- Tableau affichant la liste des personnes  -->
+  <p-table
+    #p
+    [value]="listeConsultation"
+    styleClass="p-datatable-striped"
+    [paginator]="true"
+    [rows]="10"
+    [showCurrentPageReport]="true"
+    [rowsPerPageOptions]="[5, 10, 15]"
+    [globalFilterFields]="['rapportConsultation']"
+    class="center"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th>N°</th>
+        <th pSortableColumn="dateConsultation">
+          DateConsultation
+        <p-sortIcon></p-sortIcon>
+      </th>
+        <th pSortableColumn="rapportConsultation">
+            RapportConsultation
+          <p-sortIcon></p-sortIcon>
+        </th>
+
+        <th>prixConsultation</th>
+        <th>Actions</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-consultation let-index="rowIndex">
+      <tr>
+        <td>{{ index + 1 }}</td>
+        <td>{{ consultation.dateConsultation  | date:'shortDate'}}</td>
+        <td>{{ consultation.rapportConsultation | firstNameFormat }}</td>
+        <td>{{ consultation.prixConsultation }}</td>
+        <td>
+          <button
+            pButton
+            pRipple
+            icon="pi pi-pencil"
+            class="p-button-rounded p-button-primary mr-2"
+            (click)="editConsultation(consultation)"
+          ></button> 
+          <button
+            pButton
+            pRipple
+            icon="pi pi-trash"
+            class="p-button-rounded p-button-danger"
+            (click)="deleteConsultation(consultation.id)"
+          ></button>
+        </td> 
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<!-- Formulaire d'ajout ou de modification des infomartionq d'une personne -->
+<p-dialog
+  header="Information Consultation"
+  [(visible)]="visible"
+  [modal]="true"
+  [style]="{ width: '450px'}"
+  styleClass="p-fluid"
+  [draggable]="false"
+>
+  <ng-template pTemplate="content">
+    <br />
+    <div class="p-float-label">
+      <input
+        type="Date"
+        pInputText
+        id="dateConsultation"
+        [(ngModel)]="consultation.dateConsultation"
+        required
+        autofocus
+        #nomInput="ngModel"
+        [ngClass]="{
+          'ng-dirty': nomInput.invalid && submitted
+        }"
+      />
+      <label htmlFor="dateConsultation">Date Consultation</label>
+    </div>
+    <br />
+    <div class="p-float-label">
+      <input
+        type="texte"
+        pInputText
+        id="rapportConsultation"
+        [(ngModel)]="consultation.rapportConsultation"
+        required="true"
+        autofocus
+        #prenomsInput="ngModel"
+        [ngClass]="{
+          'ng-dirty': nomInput.invalid && submitted
+        }"
+      />
+      <label htmlFor="rapportConsultation" >Rapport Consultation</label>
+    </div>
+    <br />
+    <div class="p-float-label">
+      <input
+        pInputText
+        id="prixConsultation"
+        [(ngModel)]="consultation.prixConsultation"
+        required
+        autofocus
+        #nomInput="ngModel"
+        [ngClass]="{
+          'ng-dirty': nomInput.invalid && submitted
+        }"
+      />
+      <label htmlFor="prixConsultation">Prix Consultation</label>
+    </div>
+    <!-- <div class="p-float-label">
+      <input
+        pInputText
+        id="age"
+        [(ngModel)]="personne.age"
+        required
+        autofocus
+        #ageInput="ngModel"
+        type="number"
+        min="1"
+        [ngClass]="{
+          'ng-dirty': ageInput.invalid && submitted
+        }"
+      />
+      <label htmlFor="age">Age</label>
+    </div> -->
+    <!-- <br /> -->
+    <!-- <div class="field">
+      <p-dropdown
+        [(ngModel)]="personne.departement"
+        [options]="ListeDepartement"
+        placeholder="Departement"
+        optionLabel="designation"
+        appendTo="body"
+      >
+        <ng-template let-departement pTemplate="departemennt">
+          {{ departement.designation }}
+        </ng-template>
+      </p-dropdown>
+    </div> -->
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <button pButton pRipple label="Submit" class="p-button-success" 
+     (click)="saveConsultation(consultation.id, consultation)"></button>
+  </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{width: '250px'}"></p-confirmDialog>
+
