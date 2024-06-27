@@ -4,27 +4,32 @@ import { HomeComponent } from './components/home/home.component';
 import { ListePersonneComponent } from './components/liste-personne/liste-personne.component';
 import { MedecinComponent } from './medecin/medecin.component';
 import { ConsultationComponent } from './consultation/consultation.component';
+import { RendezVousComponent } from './rendez-vous/rendez-vous.component';
 const routes: Routes = [
   {
-    path : 'home',
-    component : HomeComponent
+    path: 'home',
+    component: HomeComponent
   },
   {
-    path : 'Patient',
-    component : ListePersonneComponent
+    path: 'Patient',
+    component: ListePersonneComponent
   },
   {
-    path : 'Medecin',
-    component : MedecinComponent
+    path: 'Medecin',
+    component: MedecinComponent
   },
   {
-    path : 'Consultation',
-    component : ConsultationComponent
+    path: 'Consultation',
+    component: ConsultationComponent
   },
   {
-    path : '',
-    redirectTo : 'home',
-    pathMatch : 'full'
+    path: 'RendezVous',
+    component: RendezVousComponent
+  },
+  {
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full'
   }
 ];
 

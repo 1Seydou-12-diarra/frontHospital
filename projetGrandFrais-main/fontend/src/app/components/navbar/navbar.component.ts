@@ -30,6 +30,11 @@ export class NavbarComponent {
         icon: 'pi pi-fw pi-users',
         routerLink: '/Consultation',
       },
+      {
+        label: 'RendezVous',
+        icon: 'pi pi-fw pi-users',
+        routerLink: '/RendezVous',
+      },
     ];
 
     this.activeItem = this.items[0];

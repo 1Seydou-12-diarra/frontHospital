@@ -73,7 +73,7 @@ import { RendezVousComponent } from './rendez-vous/rendez-vous.component';
     TreeSelectModule,
     ScrollerModule
   ],
-  exports:[
+  exports: [
 
   ],
   providers: [
@@ -82,4 +82,4 @@ import { RendezVousComponent } from './rendez-vous/rendez-vous.component';
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
